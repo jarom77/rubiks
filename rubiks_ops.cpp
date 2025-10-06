@@ -60,16 +60,26 @@ std::ostream& operator<<(std::ostream& os, const Rubiks obj) {
     return os;
 }
 
+#define RESET "\033[0m"
 std::string Rubiks::toString() const {
-    char sym[7] = "WYROBG";
+    //char sym[7] = "WYROBG";
+    std::string sym[6] = {
+        "\e[107;30m \e[0m",
+        "\e[30;48:5:226m \e[0m",
+        "\e[101m ",
+        "\e[48:5:214m ",
+        "\e[104m ",
+        "\e[102m ",
+    };
     std::ostringstream oss;
+    oss << std::endl;
 
     // top: red face
     for (ITERUP(z)) {
         oss << "    ";
         for (ITERDOWN(y))
             oss << sym[(int)cube[0][y][z]];
-        oss << std::endl;
+        oss << RESET << std::endl;
     }
     oss << std::endl;
 
@@ -78,15 +88,15 @@ std::string Rubiks::toString() const {
         // blue (left)
         for (ITERDOWN(z))
             oss << sym[(int)cube[x][0][z]];
-        oss << ' ';
+        oss << RESET << ' ';
         // white (center)
         for (ITERUP(y))
             oss << sym[(int)cube[x][y][0]];
-        oss << ' ';
+        oss << RESET << ' ';
         // green (right)
         for (ITERUP(z))
             oss << sym[(int)cube[x][4][z]];
-        oss << std::endl;
+        oss << RESET << std::endl;
     }
     oss << std::endl;
 
@@ -95,7 +105,7 @@ std::string Rubiks::toString() const {
         oss << "    ";
         for (ITERUP(y))
             oss << sym[(int)cube[4][y][z]];
-        oss << std::endl;
+        oss << RESET << std::endl;
     }
     oss << std::endl;
 
@@ -104,7 +114,7 @@ std::string Rubiks::toString() const {
         oss << "    ";
         for (ITERUP(y))
             oss << sym[(int)cube[x][y][4]];
-        oss << std::endl;
+        oss << RESET << std::endl;
     }
     oss << std::endl;
     return oss.str();
