@@ -6,6 +6,8 @@ int main() {
     
     if (!cube.interactiveSet()) return 1;
 
+    std::cout << cube;
+
     // now solve
 
     return 0;

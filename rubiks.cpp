@@ -3,50 +3,6 @@
 #include <string>
 #include <cctype>
 
-std::ostream& operator<<(std::ostream& os, const Color obj) {
-    switch (obj) {
-    case WHITE:
-        os << "white";
-        break;
-    case YELLOW:
-        os << "yellow";
-        break;
-    case RED:
-        os << "red";
-        break;
-    case ORANGE:
-        os << "orange";
-	break;
-    case BLUE:
-        os << "blue";
-        break;
-    case GREEN:
-        os << "green";
-        break;
-    case NO_COLOR:
-        os << "error";
-    }
-    return os;
-}
-
-Color toColor(std::string userColor) {
-    char firstChar = userColor[0] | 0x60;
-    switch (firstChar) {
-        case 'w': return WHITE;
-        case 'y': return YELLOW;
-        case 'r': return RED;
-        case 'o': return ORANGE;
-        case 'b': return BLUE;
-        case 'g': return GREEN;
-        default: return NO_COLOR;
-    }
-}
-
-std::ostream& operator<<(std::ostream& os, const ColorIter obj) {
-    os << obj.getColor();
-    return os;
-}
-
 bool Rubiks::interactiveSet() {
     std::string userColor;
     std::cout << "White side up, otherwise blue up\n";

@@ -11,7 +11,7 @@ public:
     bool interactiveSet();
     bool checkValid();
     void executeTurn(Color side, Turn direction);
-    void print();
+    std::string toString() const;
 private:
     Color cube[N_COLORS-1][N_COLORS-1][N_COLORS-1];
     Color *refSquare(Color face, size_t i, size_t j);
@@ -22,10 +22,12 @@ public:
     ColorIter() { index = (Color)0; }
     bool atEnd() { return index == NO_COLOR; }
     Color getColor() const { return index; }
-    ColorIter operator++(int) {
-        index = (Color)((int)index + 1);
-        return *this;
-    }
+    ColorIter operator++(int);
 private:
     Color index;
 };
+
+Color toColor(std::string userColor);
+std::ostream& operator<<(std::ostream& os, const Rubiks obj);
+std::ostream& operator<<(std::ostream& os, const Color obj);
+std::ostream& operator<<(std::ostream& os, const ColorIter obj);
