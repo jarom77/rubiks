@@ -8,6 +8,8 @@ int main() {
 
     std::cout << cube;
 
+    std::cout << cube.asArray();
+
     // now solve
 
     return 0;

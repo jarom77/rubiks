@@ -60,26 +60,29 @@ std::ostream& operator<<(std::ostream& os, const Rubiks obj) {
     return os;
 }
 
-#define RESET "\033[0m"
-std::string Rubiks::toString() const {
-    //char sym[7] = "WYROBG";
-    std::string sym[6] = {
+std::string Rubiks::voxel(size_t x,size_t y,size_t z) const {
+    std::string sym[7] = {
         "\e[107;30m \e[0m",
         "\e[30;48:5:226m \e[0m",
-        "\e[101m ",
-        "\e[48:5:214m ",
-        "\e[104m ",
-        "\e[102m ",
+        "\e[101m \e[0m",
+        "\e[48:5:214m \e[0m",
+        "\e[104m \e[0m",
+        "\e[102m \e[0m",
+        " "
     };
+    return sym[(int)cube[x][y][z]];
+}
+
+std::string Rubiks::toString() const {
     std::ostringstream oss;
     oss << std::endl;
 
     // top: red face
-    for (ITERUP(z)) {
+    for (ITERDOWN(z)) {
         oss << "    ";
-        for (ITERDOWN(y))
-            oss << sym[(int)cube[0][y][z]];
-        oss << RESET << std::endl;
+        for (ITERUP(y))
+            oss << voxel(0,y,z);
+        oss << std::endl;
     }
     oss << std::endl;
 
@@ -87,16 +90,16 @@ std::string Rubiks::toString() const {
     for (ITERUP(x)) {
         // blue (left)
         for (ITERDOWN(z))
-            oss << sym[(int)cube[x][0][z]];
-        oss << RESET << ' ';
+            oss << voxel(x,0,z);
+        oss << ' ';
         // white (center)
         for (ITERUP(y))
-            oss << sym[(int)cube[x][y][0]];
-        oss << RESET << ' ';
+            oss << voxel(x,y,0);
+        oss << ' ';
         // green (right)
         for (ITERUP(z))
-            oss << sym[(int)cube[x][4][z]];
-        oss << RESET << std::endl;
+            oss << voxel(x,4,z);
+        oss << std::endl;
     }
     oss << std::endl;
 
@@ -104,8 +107,8 @@ std::string Rubiks::toString() const {
     for (ITERUP(z)) {
         oss << "    ";
         for (ITERUP(y))
-            oss << sym[(int)cube[4][y][z]];
-        oss << RESET << std::endl;
+            oss << voxel(4,y,z);
+        oss << std::endl;
     }
     oss << std::endl;
 
@@ -113,9 +116,22 @@ std::string Rubiks::toString() const {
     for (ITERDOWN(x)) {
         oss << "    ";
         for (ITERUP(y))
-            oss << sym[(int)cube[x][y][4]];
-        oss << RESET << std::endl;
+            oss << voxel(x,y,4);
+        oss << std::endl;
     }
     oss << std::endl;
+    return oss.str();
+}
+
+std::string Rubiks::asArray() const {
+    std::ostringstream oss;
+    for (size_t z = 0; z < 5; z++) {
+	    for (size_t x = 0; x < 5; x++) {
+            for (size_t y = 0; y < 5; y++)
+                oss << voxel(x,y,z);
+            oss << std::endl;
+        }
+        oss << std::endl;
+    }
     return oss.str();
 }

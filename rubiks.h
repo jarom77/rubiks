@@ -12,9 +12,11 @@ public:
     bool checkValid();
     void executeTurn(Color side, Turn direction);
     std::string toString() const;
+    std::string asArray() const;
 private:
     Color cube[N_COLORS-1][N_COLORS-1][N_COLORS-1];
     Color *refSquare(Color face, size_t i, size_t j);
+    std::string voxel(size_t x,size_t y,size_t z) const;
 };
 
 class ColorIter {

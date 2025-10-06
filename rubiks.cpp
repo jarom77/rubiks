@@ -5,7 +5,9 @@
 
 bool Rubiks::interactiveSet() {
     std::string userColor;
-    std::cout << "White side up, otherwise blue up\n";
+    for (size_t x = 0; x < 5; x++) for (size_t y = 0; y < 5; y++)
+        for (size_t z = 0; z < 5; z++) cube[x][y][z] = NO_COLOR;
+    std::cout << "White side up, otherwise red up\n";
     for (ColorIter i; !i.atEnd(); i++) {
         std::cout << i << " side:\n";
         for (size_t j = 0; j < CUBE_N; j++)
@@ -20,29 +22,29 @@ bool Rubiks::interactiveSet() {
 
 /* Return pointer to square in cube
  *
- * W: z, -x,  y
- * Y: z,  x,  y
- * R: x, -y,  z
- * O: x,  y,  z
- * B: y,  x,  z
- * G: y, -x,  z
+ * W: z,  y,  x
+ * Y: z, -y,  x
+ * R: x,  z, -y
+ * O: x,  z,  y
+ * B: y,  z,  x
+ * G: y,  z, -x
 */
 Color *Rubiks::refSquare(Color face, size_t i, size_t j) {
     size_t x, y, z;
     size_t *pri, *sec, *ter; // dimension specs
     
     // set dimensions
-    sec = &x; ter = &z;
+    sec = &z; ter = &x;
     switch (face) {
         case WHITE:
         case YELLOW:
             pri = &z;
-            ter = &y;
+            sec = &y;
             break;
         case RED:
         case ORANGE:
             pri = &x;
-            sec = &y;
+            ter = &y;
             break;
         case BLUE:
         case GREEN:
@@ -52,15 +54,19 @@ Color *Rubiks::refSquare(Color face, size_t i, size_t j) {
             return NULL;
     }
 
-    // invert axes, set depth
+    // set depth
     if (face == WHITE || face == RED || face == BLUE) {
         *pri = 0;
-        *sec = -*sec + CUBE_N - 1;
-    } else *pri = N_COLORS - 2;
+    } else *pri = CUBE_N + 1;
 
     // assign grid
     *sec = i + 1;
     *ter = j + 1;
+
+    // invert axes
+    if (face == YELLOW || face == RED || face == GREEN)
+        *ter = -*ter + CUBE_N + 1;
+    else if (face == YELLOW) *sec = -*sec + CUBE_N + 1;
 
     return &(cube[x][y][z]);
 }
