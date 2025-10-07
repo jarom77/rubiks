@@ -6,14 +6,18 @@ int main() {
     
     if (!cube.interactiveSet()) return 1;
 
-    std::cout << "\nCube folded out as a net\n\n";
-    std::cout << cube;
-
-    std::cout << "\n3D matrix, slices of Z\n";
+    std::cout << std::endl;
+    std::cout << "3D matrix, slices of Z\n";
     std::cout << cube.asArray();
 
-    std::cout << "Green face of cube (with edges)\n\n";
-    std::cout << cube.face(GREEN);
+    std::cout << "Cube folded out as a net\n\n";
+    std::cout << cube << std::endl;
 
+    std::cout << "Green face of cube (with edges)\n\n";
+    std::cout << cube.face(GREEN) << std::endl;
+
+    std::cout << "Turn green face counter-clockwise\n\n";
+    cube.executeTurn(GREEN, CNTRCLK);
+    std::cout << cube << std::endl;
     return 0;
 }

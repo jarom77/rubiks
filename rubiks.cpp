@@ -28,6 +28,30 @@ bool Rubiks::interactiveSet(bool quick) {
     return checkValid();
 }
 
+void Rubiks::executeTurn(Color side, Turn direction) {
+    int x, y;
+    Color last, *last_square, temp;
+    for (size_t i = 1; i <= 2; i++)
+        for (int j = -1; j <= 1; j++) {
+            x = j; y = i;
+            last = *refSquare(side, x+1, y+1);
+            for (size_t turn_count = 0; turn_count < 4; turn_count++) {
+                // advance turn
+                int temp_i = x;
+                if (direction == CNTRCLK) {
+                    x = -y; y = temp_i;
+                } else {
+                    x = y; y = -temp_i;
+                }
+
+                temp = last;
+                last_square = refSquare(side, x+1, y+1);
+                last = *last_square;
+                *last_square = temp;
+            }
+        }
+}
+
 /* Return pointer to square in cube
  *
  * W: z,  y,  x
