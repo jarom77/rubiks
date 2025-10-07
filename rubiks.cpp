@@ -31,8 +31,8 @@ bool Rubiks::interactiveSet(bool quick) {
 void Rubiks::executeTurn(Color side, Turn direction) {
     int x, y;
     Color last, *last_square, temp;
-    for (size_t i = 1; i <= 2; i++)
-        for (int j = -1; j <= 1; j++) {
+    for (int i = 1; i <= 2; i++)
+        for (int j = -i + 1; j <= 1; j++) {
             x = j; y = i;
             last = *refSquare(side, x+1, y+1);
             for (size_t turn_count = 0; turn_count < 4; turn_count++) {
@@ -54,8 +54,8 @@ void Rubiks::executeTurn(Color side, Turn direction) {
 
 /* Return pointer to square in cube
  *
- * W: z,  y,  x
- * Y: z, -y,  x
+ * W: z,  x,  y
+ * Y: z,  x, -y
  * R: x,  z, -y
  * O: x,  z,  y
  * B: y,  z,  x
@@ -70,21 +70,21 @@ Color *Rubiks::refSquare(Color face, int i, int j) {
     size_t *pri, *sec, *ter; // dimension specs
     
     // set dimensions
-    sec = &z; ter = &x;
+    sec = &z; ter = &y;
     switch (face) {
         case WHITE:
         case YELLOW:
             pri = &z;
-            sec = &y;
+            sec = &x;
             break;
         case RED:
         case ORANGE:
             pri = &x;
-            ter = &y;
             break;
         case BLUE:
         case GREEN:
             pri = &y;
+	    ter = &x;
             break;
         default:
             return NULL;
@@ -108,7 +108,6 @@ Color *Rubiks::refSquare(Color face, int i, int j) {
     // invert axes
     if (face == YELLOW || face == RED || face == GREEN)
         *ter = -*ter + CUBE_N + 1;
-    else if (face == YELLOW) *sec = -*sec + CUBE_N + 1;
 
     return &(cube[x][y][z]);
 }
