@@ -1,3 +1,6 @@
+#ifndef RUBIKS_H
+#define RUBIKS_H
+
 #include <ostream>
 
 #define N_COLORS 6
@@ -11,6 +14,7 @@ public:
     Rubiks();
     bool interactiveSet(bool quick = true);
     bool checkValid();
+    bool isSolved();
     void executeTurn(Color side, Turn direction);
     std::string toString() const;
     std::string asArray() const;
@@ -36,3 +40,5 @@ std::string color_as_str(Color color);
 std::ostream& operator<<(std::ostream& os, const Rubiks obj);
 std::ostream& operator<<(std::ostream& os, const Color obj);
 std::ostream& operator<<(std::ostream& os, const ColorIter obj);
+
+#endif

@@ -6,6 +6,7 @@ int main() {
     
     std::cout << cube << std::endl;
 
+    std::cout << "Cube solved: " << cube.isSolved() << std::endl;
     cube.executeTurn(BLUE, CLK);
     std::cout << "blue clk\n" << cube << std::endl;
     cube.executeTurn(RED, CNTRCLK);
@@ -19,8 +20,8 @@ int main() {
     std::cout << "white clk\n" << cube << std::endl;
     cube.executeTurn(RED, CLK);
     std::cout << "red clk\n" << cube << std::endl;
+    std::cout << "Cube solved: " << cube.isSolved() << std::endl;
 
-    std::cout << cube << std::endl;
     // now solve
 
     return 0;

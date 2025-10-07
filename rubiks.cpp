@@ -127,3 +127,14 @@ bool Rubiks::checkValid() {
         }
     return true;
 }
+
+bool Rubiks::isSolved() {
+    for (ColorIter face; !face.atEnd(); face++)
+        for (size_t i = 0; i < CUBE_N; i++)
+            for (size_t j = 0; j < CUBE_N; j++) {
+                if (i == 1 and j == 1) continue;
+                if (*refSquare(face.getColor(), i, j) != face.getColor())
+                    return false;
+            }
+    return true;
+}
