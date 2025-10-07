@@ -4,6 +4,10 @@
 #include <cctype>
 
 Rubiks::Rubiks() {
+    // fill with empty squares first
+    for (size_t x = 0; x < 5; x++) for (size_t y = 0; y < 5; y++)
+        for (size_t z = 0; z < 5; z++) cube[x][y][z] = NO_COLOR;
+
     for (ColorIter face; !face.atEnd(); face++)
         for (size_t i = 0; i < CUBE_N; i++)
             for (size_t j = 0; j < CUBE_N; j++)
@@ -14,8 +18,7 @@ bool Rubiks::interactiveSet(bool quick) {
     std::string userColor;
     char quickColor;
     Color newColor;
-    for (size_t x = 0; x < 5; x++) for (size_t y = 0; y < 5; y++)
-        for (size_t z = 0; z < 5; z++) cube[x][y][z] = NO_COLOR;
+
     std::cout << "White side up, otherwise red up\n";
     for (ColorIter i; !i.atEnd(); i++) {
         std::cout << i << " side:\n";
