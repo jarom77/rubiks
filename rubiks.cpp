@@ -3,6 +3,13 @@
 #include <string>
 #include <cctype>
 
+Rubiks::Rubiks() {
+    for (ColorIter face; !face.atEnd(); face++)
+        for (size_t i = 0; i < CUBE_N; i++)
+            for (size_t j = 0; j < CUBE_N; j++)
+                *refSquare(face.getColor(), i, j) = face.getColor();
+}
+
 bool Rubiks::interactiveSet(bool quick) {
     std::string userColor;
     char quickColor;

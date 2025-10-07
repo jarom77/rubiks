@@ -8,6 +8,7 @@ typedef enum {CLK, CNTRCLK} Turn;
 
 class Rubiks {
 public:
+    Rubiks();
     bool interactiveSet(bool quick = true);
     bool checkValid();
     void executeTurn(Color side, Turn direction);
