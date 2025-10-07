@@ -8,41 +8,29 @@
 
 std::ostream& operator<<(std::ostream& os, const Color obj) {
     std::string sym[7] = {
-        "\e[107;30m \e[0m",
-        "\e[30;48:5:226m \e[0m",
-        "\e[101m \e[0m",
-        "\e[48:5:214m \e[0m",
-        "\e[104m \e[0m",
-        "\e[102m \e[0m",
-        " "
+        "\e[107;30m  \e[0m",
+        "\e[30;48:5:226m  \e[0m",
+        "\e[101m  \e[0m",
+        "\e[48:5:214m  \e[0m",
+        "\e[104m  \e[0m",
+        "\e[102m  \e[0m",
+        "  "
     };
     os << sym[(int)obj];
     return os;
 }
 
 std::string color_as_str(Color color) {
-    switch (color) {
-    case WHITE:
-        return "white";
-        break;
-    case YELLOW:
-        return "yellow";
-        break;
-    case RED:
-        return "red";
-        break;
-    case ORANGE:
-        return "orange";
-	break;
-    case BLUE:
-        return "blue";
-        break;
-    case GREEN:
-        return "green";
-        break;
-    default:
-        return "error";
-    }
+    std::string lookup[7] = {
+        "white",
+        "yellow",
+        "red",
+        "orange",
+        "blue",
+        "green",
+        "blank"
+    };
+    return lookup[(int)color];
 }
 
 Color toColor(std::string userColor) {
@@ -88,12 +76,13 @@ Color Rubiks::voxel(Color face, int i, int j) const {
 }
 
 std::string Rubiks::toString() const {
-    std::ostringstream oss;
-    oss << std::endl;
+    std::ostringstream oss, blank;
+    for (size_t i = 0; i < 4; i++) blank << NO_COLOR;
+    const std::string BLANK_FACE = blank.str();
 
     // top: red face
     for (ITERDOWN(z)) {
-        oss << "    ";
+        oss << BLANK_FACE;
         for (ITERUP(y))
             oss << cube[0][y][z];
         oss << std::endl;
@@ -105,11 +94,11 @@ std::string Rubiks::toString() const {
         // blue (left)
         for (ITERDOWN(z))
             oss << cube[x][0][z];
-        oss << ' ';
+        oss << NO_COLOR;
         // white (center)
         for (ITERUP(y))
             oss << cube[x][y][0];
-        oss << ' ';
+        oss << NO_COLOR;
         // green (right)
         for (ITERUP(z))
             oss << cube[x][4][z];
@@ -119,7 +108,7 @@ std::string Rubiks::toString() const {
 
     // orange
     for (ITERUP(z)) {
-        oss << "    ";
+        oss << BLANK_FACE;
         for (ITERUP(y))
             oss << cube[4][y][z];
         oss << std::endl;
@@ -128,7 +117,7 @@ std::string Rubiks::toString() const {
 
     // yellow
     for (ITERDOWN(x)) {
-        oss << "    ";
+        oss << BLANK_FACE;
         for (ITERUP(y))
             oss << cube[x][y][4];
         oss << std::endl;
@@ -140,7 +129,7 @@ std::string Rubiks::toString() const {
 std::string Rubiks::asArray() const {
     std::ostringstream oss;
     for (size_t z = 0; z < 5; z++) {
-	    for (size_t x = 0; x < 5; x++) {
+        for (size_t x = 0; x < 5; x++) {
             for (size_t y = 0; y < 5; y++)
                 oss << cube[x][y][z];
             oss << std::endl;
