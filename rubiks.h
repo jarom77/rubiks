@@ -8,7 +8,7 @@ typedef enum {CLK, CNTRCLK} Turn;
 
 class Rubiks {
 public:
-    bool interactiveSet();
+    bool interactiveSet(bool quick = true);
     bool checkValid();
     void executeTurn(Color side, Turn direction);
     std::string toString() const;

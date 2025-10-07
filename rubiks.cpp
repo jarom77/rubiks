@@ -3,8 +3,10 @@
 #include <string>
 #include <cctype>
 
-bool Rubiks::interactiveSet() {
+bool Rubiks::interactiveSet(bool quick) {
     std::string userColor;
+    char quickColor;
+    Color newColor;
     for (size_t x = 0; x < 5; x++) for (size_t y = 0; y < 5; y++)
         for (size_t z = 0; z < 5; z++) cube[x][y][z] = NO_COLOR;
     std::cout << "White side up, otherwise red up\n";
@@ -12,8 +14,14 @@ bool Rubiks::interactiveSet() {
         std::cout << i << " side:\n";
         for (size_t j = 0; j < CUBE_N; j++)
             for (size_t k = 0; k < CUBE_N; k++) {
-                std::cin >> userColor;
-                *refSquare(i.getColor(),j,k) = toColor(userColor);
+                if (quick) {
+                    std::cin >> quickColor;
+                    newColor = toColor(&quickColor);
+                } else {
+                    std::cin >> userColor;
+                    newColor = toColor(userColor);
+                }
+                *refSquare(i.getColor(),j,k) = newColor;
             }
     }
 
