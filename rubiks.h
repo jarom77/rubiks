@@ -13,10 +13,11 @@ public:
     void executeTurn(Color side, Turn direction);
     std::string toString() const;
     std::string asArray() const;
+    std::string face(Color face) const;
+    Color voxel(Color face, int i, int j) const;
 private:
     Color cube[N_COLORS-1][N_COLORS-1][N_COLORS-1];
-    Color *refSquare(Color face, size_t i, size_t j);
-    std::string voxel(size_t x,size_t y,size_t z) const;
+    Color *refSquare(Color face, int i, int j);
 };
 
 class ColorIter {
@@ -30,6 +31,7 @@ private:
 };
 
 Color toColor(std::string userColor);
+std::string color_as_str(Color color);
 std::ostream& operator<<(std::ostream& os, const Rubiks obj);
 std::ostream& operator<<(std::ostream& os, const Color obj);
 std::ostream& operator<<(std::ostream& os, const ColorIter obj);

@@ -29,7 +29,11 @@ bool Rubiks::interactiveSet() {
  * B: y,  z,  x
  * G: y,  z, -x
 */
-Color *Rubiks::refSquare(Color face, size_t i, size_t j) {
+Color *Rubiks::refSquare(Color face, int i, int j) {
+    if (i < -1 or j < -1 or i > 3 or j > 3) {
+            std::cerr << "Bad dimension! (" << i << ',' << 'j' << ")\n";
+            return NULL;
+    }
     size_t x, y, z;
     size_t *pri, *sec, *ter; // dimension specs
     
@@ -62,6 +66,12 @@ Color *Rubiks::refSquare(Color face, size_t i, size_t j) {
     // assign grid
     *sec = i + 1;
     *ter = j + 1;
+
+    // allow selection of edges
+    if (i < 0 or i >= CUBE_N or j < 0 or j >= CUBE_N) {
+        if (*pri == 0) (*pri)++;
+        else (*pri)--;
+    }
 
     // invert axes
     if (face == YELLOW || face == RED || face == GREEN)

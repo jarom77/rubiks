@@ -7,29 +7,42 @@
 #define ITERDOWN(name_) size_t name_ = 3; name_ > 0; name_--
 
 std::ostream& operator<<(std::ostream& os, const Color obj) {
-    switch (obj) {
+    std::string sym[7] = {
+        "\e[107;30m \e[0m",
+        "\e[30;48:5:226m \e[0m",
+        "\e[101m \e[0m",
+        "\e[48:5:214m \e[0m",
+        "\e[104m \e[0m",
+        "\e[102m \e[0m",
+        " "
+    };
+    os << sym[(int)obj];
+    return os;
+}
+
+std::string color_as_str(Color color) {
+    switch (color) {
     case WHITE:
-        os << "white";
+        return "white";
         break;
     case YELLOW:
-        os << "yellow";
+        return "yellow";
         break;
     case RED:
-        os << "red";
+        return "red";
         break;
     case ORANGE:
-        os << "orange";
+        return "orange";
 	break;
     case BLUE:
-        os << "blue";
+        return "blue";
         break;
     case GREEN:
-        os << "green";
+        return "green";
         break;
-    case NO_COLOR:
-        os << "error";
+    default:
+        return "error";
     }
-    return os;
 }
 
 Color toColor(std::string userColor) {
@@ -46,7 +59,7 @@ Color toColor(std::string userColor) {
 }
 
 std::ostream& operator<<(std::ostream& os, const ColorIter obj) {
-    os << obj.getColor();
+    os << color_as_str(obj.getColor());
     return os;
 }
 
@@ -60,17 +73,18 @@ std::ostream& operator<<(std::ostream& os, const Rubiks obj) {
     return os;
 }
 
-std::string Rubiks::voxel(size_t x,size_t y,size_t z) const {
-    std::string sym[7] = {
-        "\e[107;30m \e[0m",
-        "\e[30;48:5:226m \e[0m",
-        "\e[101m \e[0m",
-        "\e[48:5:214m \e[0m",
-        "\e[104m \e[0m",
-        "\e[102m \e[0m",
-        " "
-    };
-    return sym[(int)cube[x][y][z]];
+std::string Rubiks::face(Color face) const {
+    std::ostringstream oss;
+    for (int i = -1; i < 4; i++) {
+        for (int j = -1; j < 4; j++)
+            oss << voxel(face, i, j);
+	oss << std::endl;
+    }
+    return oss.str();
+}
+
+Color Rubiks::voxel(Color face, int i, int j) const {
+    return *(const_cast<Rubiks*>(this)->refSquare(face, i, j));
 }
 
 std::string Rubiks::toString() const {
@@ -81,7 +95,7 @@ std::string Rubiks::toString() const {
     for (ITERDOWN(z)) {
         oss << "    ";
         for (ITERUP(y))
-            oss << voxel(0,y,z);
+            oss << cube[0][y][z];
         oss << std::endl;
     }
     oss << std::endl;
@@ -90,15 +104,15 @@ std::string Rubiks::toString() const {
     for (ITERUP(x)) {
         // blue (left)
         for (ITERDOWN(z))
-            oss << voxel(x,0,z);
+            oss << cube[x][0][z];
         oss << ' ';
         // white (center)
         for (ITERUP(y))
-            oss << voxel(x,y,0);
+            oss << cube[x][y][0];
         oss << ' ';
         // green (right)
         for (ITERUP(z))
-            oss << voxel(x,4,z);
+            oss << cube[x][4][z];
         oss << std::endl;
     }
     oss << std::endl;
@@ -107,7 +121,7 @@ std::string Rubiks::toString() const {
     for (ITERUP(z)) {
         oss << "    ";
         for (ITERUP(y))
-            oss << voxel(4,y,z);
+            oss << cube[4][y][z];
         oss << std::endl;
     }
     oss << std::endl;
@@ -116,7 +130,7 @@ std::string Rubiks::toString() const {
     for (ITERDOWN(x)) {
         oss << "    ";
         for (ITERUP(y))
-            oss << voxel(x,y,4);
+            oss << cube[x][y][4];
         oss << std::endl;
     }
     oss << std::endl;
@@ -128,7 +142,7 @@ std::string Rubiks::asArray() const {
     for (size_t z = 0; z < 5; z++) {
 	    for (size_t x = 0; x < 5; x++) {
             for (size_t y = 0; y < 5; y++)
-                oss << voxel(x,y,z);
+                oss << cube[x][y][z];
             oss << std::endl;
         }
         oss << std::endl;

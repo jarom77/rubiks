@@ -10,6 +10,8 @@ int main() {
 
     std::cout << cube.asArray();
 
+    std::cout << cube.face(GREEN);
+
     // now solve
 
     return 0;
