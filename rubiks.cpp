@@ -1,4 +1,5 @@
 #include "rubiks.h"
+#include "rubiksIterators.h"
 #include <iostream>
 #include <string>
 #include <cctype>
@@ -39,6 +40,7 @@ bool Rubiks::interactiveSet(bool quick) {
 }
 
 void Rubiks::executeTurn(Color side, Turn direction) {
+    if (side == NO_COLOR) return;
     int x, y;
     Color last, *last_square, temp;
     for (int i = 1; i <= 2; i++)
@@ -48,7 +50,7 @@ void Rubiks::executeTurn(Color side, Turn direction) {
             for (size_t turn_count = 0; turn_count < 4; turn_count++) {
                 // advance turn
                 int temp_i = x;
-                if (direction == CNTRCLK) {
+                if (direction == Turn::CntrClk) {
                     x = -y; y = temp_i;
                 } else {
                     x = y; y = -temp_i;
@@ -59,6 +61,34 @@ void Rubiks::executeTurn(Color side, Turn direction) {
                 last = *last_square;
                 *last_square = temp;
             }
+        }
+}
+
+/*     +---+---+---+
+ *     |   |   |   |
+ * +---+---+---+---+---+
+ * |   |   |   |   |   |
+ * +---+---+---+---+---+
+ * |   |   |   | X | X |
+ * +---+---+---+---+---+
+ * | X | X | X | X | X |
+ * +---+---+---+---+---+
+ *     | X | X | X | S
+ *     +---+---+---+
+*/
+void Rubiks::turn180(Color side) {
+    if (side == NO_COLOR) return;
+
+    Color *square_a, *square_b, temp;
+    const int START[] = {1, -2, -1};
+    for (size_t i = 0; i <= 2; i++)
+        for (int j = START[i]; j <= 2; j++) {
+            if (i == 2 && j == 2) continue; // skip 'S' corner
+            square_a = refSquare(side, i+1, j+1);
+            square_b = refSquare(side, -i+1, -j+1);
+            temp = *square_a;
+            *square_a = *square_b;
+            *square_b = temp;
         }
 }
 
@@ -73,7 +103,7 @@ void Rubiks::executeTurn(Color side, Turn direction) {
 */
 Color *Rubiks::refSquare(Color face, int i, int j) {
     if (i < -1 or j < -1 or i > 3 or j > 3) {
-            std::cerr << "Bad dimension! (" << i << ',' << 'j' << ")\n";
+            std::cerr << "Bad dimension! (" << i << ',' << j << ")\n";
             return NULL;
     }
     size_t x, y, z;
@@ -94,7 +124,7 @@ Color *Rubiks::refSquare(Color face, int i, int j) {
         case BLUE:
         case GREEN:
             pri = &y;
-	    ter = &x;
+            ter = &x;
             break;
         default:
             return NULL;
@@ -140,4 +170,8 @@ bool Rubiks::isSolved() {
                     return false;
             }
     return true;
+}
+
+size_t Rubiks::score(SolveMethod method) const {
+    return 0;
 }

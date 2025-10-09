@@ -3,11 +3,17 @@
 
 #include <ostream>
 
+#define SOLUTION_MAX 25 // size of array to expect
 #define N_COLORS 6
 #define CUBE_N 3
 
 typedef enum {WHITE, YELLOW, RED, ORANGE, BLUE, GREEN, NO_COLOR} Color;
-typedef enum {CLK, CNTRCLK} Turn;
+enum class Turn {Clk, CntrClk};
+typedef struct {
+    Color face;
+    Turn direction;
+} Move;
+typedef enum {RANDOM} SolveMethod;
 
 class Rubiks {
 public:
@@ -15,7 +21,9 @@ public:
     bool interactiveSet(bool quick = true);
     bool checkValid();
     bool isSolved();
+    size_t score(SolveMethod method) const;
     void executeTurn(Color side, Turn direction);
+    void turn180(Color side);
     std::string toString() const;
     std::string asArray() const;
     std::string face(Color face) const;
@@ -25,20 +33,11 @@ private:
     Color *refSquare(Color face, int i, int j);
 };
 
-class ColorIter {
-public:
-    ColorIter() { index = (Color)0; }
-    bool atEnd() { return index == NO_COLOR; }
-    Color getColor() const { return index; }
-    ColorIter operator++(int);
-private:
-    Color index;
-};
-
 Color toColor(std::string userColor);
 std::string color_as_str(Color color);
-std::ostream& operator<<(std::ostream& os, const Rubiks obj);
 std::ostream& operator<<(std::ostream& os, const Color obj);
-std::ostream& operator<<(std::ostream& os, const ColorIter obj);
+std::ostream& operator<<(std::ostream& os, const Rubiks obj);
+std::ostream& operator<<(std::ostream& os, const Move obj);
+bool solve(Rubiks& cube, Move *solution, SolveMethod method, size_t max_moves = 8);
 
 #endif

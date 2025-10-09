@@ -46,14 +46,9 @@ Color toColor(std::string userColor) {
     }
 }
 
-std::ostream& operator<<(std::ostream& os, const ColorIter obj) {
-    os << color_as_str(obj.getColor());
+std::ostream& operator<<(std::ostream& os, const Move obj) {
+    os << color_as_str(obj.face) << ' ' << obj.direction << std::endl;
     return os;
-}
-
-ColorIter ColorIter::operator++(int) {
-    index = (Color)((int)index + 1);
-    return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const Rubiks obj) {
@@ -66,7 +61,7 @@ std::string Rubiks::face(Color face) const {
     for (int i = -1; i < 4; i++) {
         for (int j = -1; j < 4; j++)
             oss << voxel(face, i, j);
-	oss << std::endl;
+        oss << std::endl;
     }
     return oss.str();
 }

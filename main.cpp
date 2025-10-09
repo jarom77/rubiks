@@ -1,28 +1,40 @@
 #include <iostream>
+#ifndef MOVE_LOOKAHEAD
+#define MOVE_LOOKAHEAD 2
+#endif
 #include "rubiks.h"
+
+#define LENGTH 10
 
 int main() {
     Rubiks cube;
-    
     std::cout << cube << std::endl;
 
     std::cout << "Cube solved: " << cube.isSolved() << std::endl;
-    cube.executeTurn(BLUE, CLK);
-    std::cout << "blue clk\n" << cube << std::endl;
-    cube.executeTurn(RED, CNTRCLK);
-    std::cout << "red cntrclk\n" << cube << std::endl;
+    std::cout << "Score: " << cube.score() << std::endl;
+    cube.executeTurn(BLUE, Turn::Clk);
+    std::cout << "blue clk: " << cube.score() << std::endl << cube << std::endl;
+    cube.executeTurn(RED, Turn::CntrClk);
+    std::cout << "red cntrclk: " << cube.score() << std::endl << cube << std::endl;
     std::cout << cube.face(RED) << std::endl;
-    cube.executeTurn(YELLOW, CLK);
-    std::cout << "yellow clk\n" << cube << std::endl;
-    cube.executeTurn(ORANGE, CLK);
-    std::cout << "orange clk\n" << cube << std::endl;
-    cube.executeTurn(WHITE, CLK);
-    std::cout << "white clk\n" << cube << std::endl;
-    cube.executeTurn(RED, CLK);
-    std::cout << "red clk\n" << cube << std::endl;
-    std::cout << "Cube solved: " << cube.isSolved() << std::endl;
+    cube.executeTurn(YELLOW, Turn::Clk);
+    std::cout << "yellow clk: " << cube.score() << std::endl << cube << std::endl;
+    cube.executeTurn(ORANGE, Turn::Clk);
+    std::cout << "orange clk: " << cube.score() << std::endl << cube << std::endl;
+    cube.executeTurn(WHITE, Turn::Clk);
+    std::cout << "white clk: " << cube.score() << std::endl << cube << std::endl;
+    cube.executeTurn(RED, Turn::Clk);
+    std::cout << "red clk: " << cube.score() << std::endl << cube << std::endl;
+    std::cout << "Cube solved: " << cube.isSolved() << "\n\n";
 
-    // now solve
+    Move solution[SOLUTION_MAX];
+    if (solve(cube, solution, LENGTH, NeighborCost))
+        std::cout << "Solution found!\n";
+    else std::cout << "Not solved.\n";
+    std::cout << "Steps:\n";
+    for (size_t i = 0; solution[i].face != NO_COLOR; i++)
+        std::cout << solution[i];
+    std::cout << std::endl << cube << "\n\n";
 
     return 0;
 }
