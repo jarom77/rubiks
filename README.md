@@ -8,7 +8,7 @@ Fork the repo and write your own solver. If you use a paper or other source, cit
 
 ### Testing
 
-Test your solution by running `make`. It will run your solution with three different cubes of increasing difficulty.
+Test your solution by running `make`. It will run your solution with four different cubes of increasing difficulty.
 
 ### Writing a Solution
 
@@ -39,21 +39,21 @@ bool solve(Rubiks& cube, Move *solution, SolveMethod method, size_t max_moves) {
 
 ## Notes
 
-The Rubiks cube is a class. Member function descriptions are in the header file.
+The Rubiks cube is a class. Member function descriptions are in the header file `rubiks.h`.
 
 All 2D representations of a side are oriented with white on top. For white and yellow, red is on top. When inputting a cube side in `interactiveSet`, input in reading order (left-to-right, then down).
 
 The iterator classes will save you a lot of time. They provide ways to iterate through both colors and move types.
 
-MoveIter not only iterates through the 13 possible moves (includes null move at end), but it executes the moves on the cube provided (and undoes them before the next move). It will speed things up.
+MoveIter not only iterates through the 13 possible moves (includes null move at end), but it executes the moves on the cube provided (and undoes them before the next move). It will make your life a lot easier.
 
-**Important!!** When building the solution from your solver, there are two things to be careful of.
+**Important!!** When building the solution in your solver, there are two things to be careful of.
 
-1. The length of `solution`, which is an array of Moves, is defined in `rubiks.h` as `SOLUTION_MAX = 25`. Don't put in more than 25 moves.
+1. The length of `solution`, which is an array of Moves, is defined in `rubiks.h` as `SOLUTION_MAX = 25`. Don't put in more than 25 moves without changing that constant.
 2. Your solution must end with a `NO_COLOR` move. This is a non-move, or null move, that marks the end of your solution (like a NULL in a C-string).
 
 ### Hints
 
 - Everything here is shown in the `solve_basic` solver in `rubiks_solver.cpp`.
 - Run `make main` and then `./main N`, replacing N with a number. This will do N random turns on a cube, then try to solve it. This allows you more practice scenarios.
-  - You'll find that `solve_basic` can solve cubes with only 1 turn (`./main 1`), but can't solve anything more complex.
+  - You'll find that `solve_basic` can solve cubes with 1 turn (`./main 1`), but can't solve anything more complex.
