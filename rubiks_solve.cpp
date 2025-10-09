@@ -3,6 +3,7 @@
 
 bool solve_random(Rubiks& cube, Move *solution, size_t max_moves) {
     // solve
+    return false;
 }
 
 bool solve(Rubiks& cube, Move *solution, SolveMethod method, size_t max_moves) {

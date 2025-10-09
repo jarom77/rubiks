@@ -8,6 +8,8 @@ using namespace std;
 
 int main() {
     Rubiks cube;
+    // random seed
+    srand(time(NULL));
     
     // do some turns
     for (int i = 0; i < EXAMPLE_TURNS; i++) {

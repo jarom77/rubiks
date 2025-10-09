@@ -13,7 +13,7 @@ typedef struct {
     Color face;
     Turn direction;
 } Move;
-typedef enum {RANDOM} SolveMethod;
+typedef enum {Random} SolveMethod;
 
 class Rubiks {
 public:
