@@ -1,8 +1,6 @@
 #include <iostream>
 #include "rubiks.h"
 
-#define LENGTH 7
-
 int main() {
     Rubiks cube;
     
@@ -10,10 +8,11 @@ int main() {
     
     std::cout << cube << std::endl;
 
-    Move solution[LENGTH];
-    if (solve(cube, solution, LENGTH, NeighborCost))
+    Move solution[SOLUTION_MAX];
+    if (solve(cube, solution, NeighborCost))
         std::cout << "Solution found!\n";
     else std::cout << "Not solved.\n";
+
     std::cout << "Steps:\n";
     for (size_t i = 0; solution[i].face != NO_COLOR; i++)
         std::cout << solution[i];

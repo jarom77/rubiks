@@ -5,17 +5,6 @@ std::ostream& operator<<(std::ostream& os, const ColorIter obj) {
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const Turn obj) {
-    if (obj == Turn::Clk) os << "clockwise";
-    else os << "counterclockwise";
-    return os;
-}
-
-Turn operator!(Turn obj) {
-    if (obj == Turn::Clk) return Turn::CntrClk;
-    return Turn::Clk;
-}
-
 ColorIter ColorIter::operator++(int) {
     index = (Color)((int)index + 1);
     return *this;

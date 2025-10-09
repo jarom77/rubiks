@@ -46,6 +46,17 @@ Color toColor(std::string userColor) {
     }
 }
 
+std::ostream& operator<<(std::ostream& os, const Turn obj) {
+    if (obj == Turn::Clk) os << "clockwise";
+    else os << "counterclockwise";
+    return os;
+}
+
+Turn operator!(Turn obj) {
+    if (obj == Turn::Clk) return Turn::CntrClk;
+    return Turn::Clk;
+}
+
 std::ostream& operator<<(std::ostream& os, const Move obj) {
     os << color_as_str(obj.face) << ' ' << obj.direction << std::endl;
     return os;

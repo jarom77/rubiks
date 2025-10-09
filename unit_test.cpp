@@ -19,5 +19,6 @@ int main() {
     std::cout << "Turn green face counter-clockwise\n\n";
     cube.executeTurn(GREEN, Turn::CntrClk);
     std::cout << cube << std::endl;
+
     return 0;
 }

@@ -22,7 +22,7 @@ public:
     Turn getDir() const;
     Move getMove() const;
     MoveIter operator++(int);
-    size_t score(SolveMethod method = NeighborCost) const;
+    size_t score(SolveMethod method) const;
 private:
     Rubiks *cube;
     ColorIter face;
@@ -30,7 +30,5 @@ private:
 };
 
 std::ostream& operator<<(std::ostream& os, const ColorIter obj);
-std::ostream& operator<<(std::ostream& os, const Turn obj);
-Turn operator!(Turn obj);
 
 #endif

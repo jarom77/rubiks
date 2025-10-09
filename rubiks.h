@@ -36,8 +36,10 @@ private:
 Color toColor(std::string userColor);
 std::string color_as_str(Color color);
 std::ostream& operator<<(std::ostream& os, const Color obj);
+std::ostream& operator<<(std::ostream& os, const Turn obj);
 std::ostream& operator<<(std::ostream& os, const Rubiks obj);
 std::ostream& operator<<(std::ostream& os, const Move obj);
+Turn operator!(Turn obj);
 bool solve(Rubiks& cube, Move *solution, SolveMethod method, size_t max_moves = 8);
 
 #endif
