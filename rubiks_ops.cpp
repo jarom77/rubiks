@@ -1,4 +1,5 @@
 #include "rubiks.h"
+#include "rubiksIterators.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -130,6 +131,15 @@ std::string Rubiks::toString() const {
     }
     oss << std::endl;
     return oss.str();
+}
+
+std::string Rubiks::strSpec() const {
+    std::string spec = "";
+    for (ColorIter face; !face.atEnd(); face++)
+        for (size_t i = 0; i < CUBE_N; i++)
+            for (size_t j = 0; j < CUBE_N; j++)
+                spec += color_as_str(voxel(face.getColor(), i, j))[0];
+    return spec;
 }
 
 std::string Rubiks::asArray() const {

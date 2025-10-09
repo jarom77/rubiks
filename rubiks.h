@@ -28,6 +28,7 @@ public:
     void turn180(Color side);
     std::string toString() const;
     std::string asArray() const;
+    std::string strSpec() const;
 
     // returns a printable string of a single face
     // with its edges

@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
     }
 
     std::cout << cube << std::endl;
+    std::cout << cube.strSpec() << std::endl;
 
     Move solution[SOLUTION_MAX];
     if (solve(cube, solution, (SolveMethod)0))
