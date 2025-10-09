@@ -18,7 +18,7 @@ This is done by modifying `rubiks_solve.cpp` and `rubiks.h`. For example, to add
 typedef enum {Enigma, Basic} SolveMethod;
 ```
 
-> Be sure to add it at the beginning of the list! (so it's the first one listed.) Otherwise you'll have to tweak other scripts.
+**Important!!** Be sure to add your method at the beginning of the list! (so it's the first one listed.) Otherwise you'll have to tweak other scripts.
 
 Then you add it to `rubiks_solve.cpp`:
 
@@ -43,13 +43,16 @@ The Rubiks cube is a class. Member function descriptions are in the header file.
 
 All 2D representations of a side are oriented with white on top. For white and yellow, red is on top. When inputting a cube side in `interactiveSet`, input in reading order (left-to-right, then down).
 
+The iterator classes will save you a lot of time. They provide ways to iterate through both colors and move types.
+
+MoveIter not only iterates through the 13 possible moves (includes null move at end), but it executes the moves on the cube provided (and undoes them before the next move). It will speed things up.
+
 **Important!!** When building the solution from your solver, there are two things to be careful of.
 
 1. The length of `solution`, which is an array of Moves, is defined in `rubiks.h` as `SOLUTION_MAX = 25`. Don't put in more than 25 moves.
 2. Your solution must end with a `NO_COLOR` move. This is a non-move, or null move, that marks the end of your solution (like a NULL in a C-string).
 
-The Iterators classes will save you a lot of time. They provide ways to iterate through both colors and move types.
+### Hints
 
-MoveIter not only iterates through the 13 possible moves (includes null move at end), but it executes the moves on the cube provided (and undoes them before the next move). It will speed things up.
-
-Everything here is shown in the `solve_basic` solver in `rubiks_solver.cpp`.
+- Everything here is shown in the `solve_basic` solver in `rubiks_solver.cpp`.
+- Run `make main` and then `./main N`, replacing N with a number. This will do N random turns on a cube, then try to solve it. This allows you more practice scenarios.

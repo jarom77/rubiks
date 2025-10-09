@@ -8,6 +8,7 @@ bool solve_basic(Rubiks& cube, Move *solution) {
         if (cube.isSolved()) {
             solution[index] = i.getMove();
             index++;
+            break;
         }
     }
     solution[index] = Move{NO_COLOR};
