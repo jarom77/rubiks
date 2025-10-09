@@ -31,7 +31,7 @@ unit_test: $(RUBIKS) unit_test.o
 	$(CC) -$(FLAGS) -o $@ $^
 
 test: unit_test
-	echo "ggggwwgwgbybbyybbbyyyyrryrywowwoowwwrrrbbrrbrogoggoooo" | ./$@
+	echo "ggggwwgwgbybbyybbbyyyyrryrywowwoowwwrrrbbrrbrogoggoooo" | ./$^
 
 %.o: %.cpp
 	$(CC) -$(FLAGS) -c -o $@ $^
