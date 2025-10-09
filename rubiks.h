@@ -13,11 +13,13 @@ typedef struct {
     Color face;
     Turn direction;
 } Move;
-typedef enum {Random} SolveMethod;
+typedef enum {Basic} SolveMethod;
 
 class Rubiks {
 public:
     Rubiks();
+    // non-quick requires spaces between squares but you
+    // can put in the full word (i.e. 'yellow' instead of 'y')
     bool interactiveSet(bool quick = true);
     bool checkValid();
     bool isSolved();
@@ -26,7 +28,15 @@ public:
     void turn180(Color side);
     std::string toString() const;
     std::string asArray() const;
+
+    // returns a printable string of a single face
+    // with its edges
     std::string face(Color face) const;
+
+    // returns the color of a square. Referenced by face
+    // and coordinate. i is down, j is right, and the
+    // middle is (1,1). See definition of `face(Color face)`
+    // in `rubiks_ops.cpp` for more information.
     Color voxel(Color face, int i, int j) const;
 private:
     Color cube[N_COLORS-1][N_COLORS-1][N_COLORS-1];

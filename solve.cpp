@@ -9,7 +9,7 @@ int main() {
     std::cout << cube << std::endl;
 
     Move solution[SOLUTION_MAX];
-    if (solve(cube, solution, NeighborCost))
+    if (solve(cube, solution, (SolveMethod)0))
         std::cout << "Solution found!\n";
     else std::cout << "Not solved.\n";
 

@@ -5,13 +5,13 @@ RUBIKS=rubiks.o rubiks_ops.o rubiks_solve.o rubiksIterators.o
 default: solve_easy solve_med solve_hard
 
 solve_easy: solve
-	echo "bbbrwwrwwgggyyoyyoyyyrrrrrrwoowoowooobbybbybbggrggwggw" | ./$@
+	echo "bbbrwwrwwgggyyoyyoyyyrrrrrrwoowoowooobbybbybbggrggwggw" | ./$<
 
 solve_med: solve
-	echo "bbrbwrbbyoggoygwgggyyyrygrrbwwworboooooobbyyyrwwggrrww" | ./$@
+	echo "bbrbwrbbyoggoygwgggyyyrygrrbwwworboooooobbyyyrwwggrrww" | ./$<
 
 solve_hard: solve
-	echo "wrbbwboygrgggygbobrygrrogwyygwyoyobyrrbwbborwowwogwroy" | ./$@
+	echo "wrbbwboygrgggygbobrygrrogwyygwyoyobyrrbwbborwowwogwroy" | ./$<
 
 main: $(RUBIKS) main.o
 	$(CC) -$(FLAGS) -o $@ $^

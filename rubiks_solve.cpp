@@ -1,13 +1,13 @@
 #include "rubiks.h"
 #include "rubiksIterators.h"
 
-bool solve_random(Rubiks& cube, Move *solution, size_t max_moves) {
+bool solve_basic(Rubiks& cube, Move *solution) {
     // solve
     return false;
 }
 
 bool solve(Rubiks& cube, Move *solution, SolveMethod method, size_t max_moves) {
-    if (method == Random)
-       return solve_random(cube, solution, max_moves);
+    if (method == Basic)
+        return solve_basic(cube, solution);
     return false;
 }
