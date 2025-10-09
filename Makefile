@@ -4,11 +4,14 @@ RUBIKS=rubiks.o rubiks_ops.o rubiks_solve.o rubiksIterators.o
 
 default: solve_easy solve_med solve_hard
 
-solve_easy: solve
+solve_begin: solve
 	echo "bbbrwwrwwgggyyoyyoyyyrrrrrrwoowoowooobbybbybbggrggwggw" | ./$<
 
+solve_easy: solve
+	echo "ygrowwboyobbbybbyogoogrggrryyryorybwbwrybrwwggrwggwoow" | ./$<
+
 solve_med: solve
-	echo "bbrbwrbbyoggoygwgggyyyrygrrbwwworboooooobbyyyrwwggrrww" | ./$<
+	echo "owwbwroobyyryyygwrrrbbrgrrwggoboyyooyrywbwbbbwggogowgg" | ./$<
 
 solve_hard: solve
 	echo "wrbbwboygrgggygbobrygrrogwyygwyoyobyrrbwbborwowwogwroy" | ./$<
