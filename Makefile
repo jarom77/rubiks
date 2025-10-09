@@ -1,18 +1,23 @@
 CC=g++
 FLAGS=Wall
+RUBIKS=rubiks.o rubiks_ops.o rubiks_solve.o rubiksIterators.o
 
-all: main
+default: main
 
-main: rubiks.o rubiks_ops.o rubiks_solve.o rubiksIterators.o main.o
+main: $(RUBIKS) main.o
 	$(CC) -$(FLAGS) -o $@ $^
 
-solve: rubiks.o rubiks_ops.o rubiks_solve.o rubiksIterators.o solve.o
+solve: $(RUBIKS) solve.o
 	$(CC) -$(FLAGS) -o $@ $^
 
 solve_test: solve
 	echo "wrbbwboygrgggygbobrygrrogwyygwyoyobyrrbwbborwowwogwroy" | ./solve
 
-unit_test: rubiks.o rubiks_ops.o unit_test.o
+example: $(RUBIKS) example.o
+	$(CC) -$(FLAGS) -o $@ $^
+	./$@
+
+unit_test: $(RUBIKS) unit_test.o
 	$(CC) -$(FLAGS) -o $@ $^
 
 test: unit_test
