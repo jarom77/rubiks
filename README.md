@@ -56,3 +56,4 @@ MoveIter not only iterates through the 13 possible moves (includes null move at 
 
 - Everything here is shown in the `solve_basic` solver in `rubiks_solver.cpp`.
 - Run `make main` and then `./main N`, replacing N with a number. This will do N random turns on a cube, then try to solve it. This allows you more practice scenarios.
+  - You'll find that `solve_basic` can solve cubes with only 1 turn (`./main 1`), but can't solve anything more complex.
